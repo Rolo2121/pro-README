@@ -1,6 +1,7 @@
 // TODO: Include packages needed for this application
 const inquirer = require('inquirer');
 const generateMarkdown = require('./utils/generateMarkdown.js');
+const { writeFile, copyFile } = require('./utils/generateMarkdown')
 
 console.log('Welcome to the README generator!')
 
@@ -37,7 +38,7 @@ const promptUser = () => {
         {
             type: 'input',
             name: 'Installation',
-            message: 'Please enter Installation Instructions (Required) :', 
+            message: 'How do you install your project? (Required)', 
                 validate: nameInput => {
                     if (nameInput) {
                         return true
@@ -82,17 +83,42 @@ const promptUser = () => {
                         console.log('Please enter how to test your project!');
                 }
             }
-        }
-    ])
+        },
+        { 
+            type: 'list',
+            name: 'license',
+            message: 'What type of license did you use? (Required)',
+                validate: nameInput => {
+                    if (nameInput) {
+                        return true
+                    } else {
+                        console.log('You must enter a license');
+                }
+        }  
+        },
+        ])
 }
 
 promptUser()
    
 // TODO: Create a function to write README file
-function writeToFile(fileName, data) {}
+function writeToFile(fileName, data) {
+fs.writeFile(`./${fileName.toLowerCase().split(' ').join(' ')}.md`, data,(err) =>{
+    if(err){
+        console.log(err)
+    }
+    console.log('Your README has been generated!');
+})
+}
 
 // TODO: Create a function to initialize app
-function init() {}
+function init() {
+    inquirer.prompt(promptUser)
+    .then(function (userInput) {
+        console.log(userInput)
+        writeToFile('README.md', generateMarkdown(userInput));
+    });
+};
 
 // Function call to initialize app
 init();
