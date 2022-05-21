@@ -1,0 +1,22 @@
+{
+  "name": "pro-readme",
+  "version": "1.0.0",
+  "description": "A README generator",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Rolo2121/pro-README.git"
+  },
+  "author": "Jake Bauer",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Rolo2121/pro-README/issues"
+  },
+  "homepage": "https://github.com/Rolo2121/pro-README#readme",
+  "dependencies": {
+    "inquirer": "^8.2.4"
+  }
+}
