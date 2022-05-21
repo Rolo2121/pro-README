@@ -1,7 +1,7 @@
 // TODO: Include packages needed for this application
 const inquirer = require('inquirer');
 const generateMarkdown = require('./utils/generateMarkdown.js');
-
+const fs = require('fs');
 console.log('Welcome to the README generator!')
 
  
@@ -59,6 +59,22 @@ const promptUser = () => {
                     }
             }
         },
+
+        {
+            type: 'checkbox',
+            name: 'license',
+            message: 'Chose a license (Required) :',
+            choice: ['MPL 2.0', 'GNU', 'Apache', 'MIT', 'None of these licenses'],
+            validate: your_license => {
+                if (your_license) {
+                    return true;
+                } else {
+                    console.log('Please enter a license for this project');
+                    return false;
+                }
+            }
+
+        },
         {
             type: 'input',
             name: 'contributions',
@@ -82,6 +98,32 @@ const promptUser = () => {
                         console.log('Please enter how to test your project!');
                 }
             }
+        },
+        {
+            type: 'input',
+            name: 'github',
+            message: 'Please enter your GitHub username (Required) :', 
+                validate: github_input => {
+                    if (github_input) {
+                        return true;
+                    } else {
+                        console.log('Please enter your GitHub username!');
+                        return false;
+                    }
+                }
+        },
+        {
+            type: 'input',
+            name: 'email',
+            message: 'Enter your email for those who might have any questions about the project?',
+                validate: email_input => {
+                    if (email_input) {
+                        return true;
+                    } else {
+                        console.log('Please enter your email');
+                        return false;
+                    }
+                }
         }
     ])
 }
@@ -89,10 +131,24 @@ const promptUser = () => {
 promptUser()
    
 // TODO: Create a function to write README file
-function writeToFile(fileName, data) {}
+function writeToFile(fileName, data) {
+    fs.writeFile(fileName, data, (err) => {
+        if (err) {
+            return console.log(err);
+        }
+    })
+
+    console.log('Success! You can now preview your README file');
+}
 
 // TODO: Create a function to initialize app
-function init() {}
+function init() {
+    inquirer.prompt(questions)
+    .then(function(userInput) {
+        console.log(userInput)
+        writeToFile('README.md', generateMarkdown(userInput));
+    })
+}
 
 // Function call to initialize app
 init();
