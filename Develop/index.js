@@ -17,7 +17,7 @@ const promptUser = () => {
                         return true
                     } else {
                         console.log('Please enter your project name!');
-                        return false;
+                        // return false;
                     }
                 }
         },
@@ -124,11 +124,11 @@ const promptUser = () => {
                         return false;
                     }
                 }
-        },
+        }
     ])
 }
 
-promptUser()
+promptUser();
    
 // TODO: Create a function to write README file
 function writeToFile(fileName, data) {
