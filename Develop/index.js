@@ -1,7 +1,8 @@
 // TODO: Include packages needed for this application
 const inquirer = require('inquirer');
-const generateMarkdown = require('./utils/generateMarkdown.js');
 const fs = require('fs');
+const generateMarkdown = require('./utils/generateMarkdown.js');
+
 console.log('Welcome to the README generator!')
 
  
@@ -12,8 +13,8 @@ const promptUser = () => {
             type: 'input',
             name: 'title',
             message: 'What is the title of your project? (Required)',
-                validate: nameInput => {
-                    if (nameInput) {
+                validate: titleInput => {
+                    if (titleInput) {
                         return true
                     } else {
                         console.log('Please enter your project name!');
@@ -25,8 +26,8 @@ const promptUser = () => {
             type: 'input',
             name: 'discription',
             message: 'Please discribe your project! (Required)',
-                validate: nameInput => {
-                    if (nameInput) {
+                validate: discriptionInput => {
+                    if (discriptionInput) {
                         return true
                     } else {
                         console.log('Please enter a description of your project!');
@@ -36,10 +37,10 @@ const promptUser = () => {
         },
         {
             type: 'input',
-            name: 'Installation',
+            name: 'installation',
             message: 'Please enter Installation Instructions (Required) :', 
-                validate: nameInput => {
-                    if (nameInput) {
+                validate: installationInput => {
+                    if (installationInput) {
                         return true
                     } else {
                         console.log('Please enter installation instructions');
@@ -51,8 +52,8 @@ const promptUser = () => {
             type: 'input',
             name: 'usage',
             message: 'Please enter usage information (Required) :',
-                validate: nameInput => {
-                    if (nameInput) {
+                validate: usageInput => {
+                    if (usageInput) {
                         return true
                     } else {
                         console.log('Please enter a description of the usage of this project');
@@ -79,8 +80,8 @@ const promptUser = () => {
             type: 'input',
             name: 'contributions',
             message: 'Please enter any contributors (Required) :', 
-                validate: nameInput => {
-                    if (nameInput) {
+                validate: contributionsInput => {
+                    if (contributionsInput) {
                         return true
                     } else {
                         console.log('If no contributors type: "none"');
@@ -91,8 +92,8 @@ const promptUser = () => {
             type: 'input',
             name: 'tests',
             message: 'Please enter how you want to test your project',
-                validate: nameInput => {
-                    if (nameInput) {
+                validate: testsInput => {
+                    if (testsInput) {
                         return true
                     } else {
                         console.log('Please enter how to test your project!');
@@ -125,8 +126,8 @@ const promptUser = () => {
                     }
                 }
         }
-    ])
-}
+    ]);
+};
 
 promptUser()
    
