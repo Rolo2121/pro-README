@@ -2,6 +2,8 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
 const generateMarkdown = require('./utils/generateMarkdown.js');
+const { witeFile, copyFile } = require('./utils/generateMarkdown')
+
 console.log('Welcome to the README generator!')
 
  
@@ -12,12 +14,12 @@ const promptUser = () => {
             type: 'input',
             name: 'title',
             message: 'What is the title of your project? (Required)',
-                validate: nameInput => {
-                    if (nameInput) {
+                validate: titleInput => {
+                    if (titleInput) {
                         return true
                     } else {
                         console.log('Please enter your project name!');
-                        // return false;
+                        return false;
                     }
                 }
         },
@@ -25,24 +27,26 @@ const promptUser = () => {
             type: 'input',
             name: 'discription',
             message: 'Please discribe your project! (Required)',
-                validate: nameInput => {
-                    if (nameInput) {
+                validate: discriptionInput => {
+                    if (discriptionInput) {
                         return true
                     } else {
                         console.log('Please enter a description of your project!');
+                        return false;
                     }
                 }
         
         },
         {
             type: 'input',
-            name: 'Installation',
+            name: 'installation',
             message: 'Please enter Installation Instructions (Required) :', 
-                validate: nameInput => {
-                    if (nameInput) {
+                validate: installationInput => {
+                    if (installationInput) {
                         return true
                     } else {
                         console.log('Please enter installation instructions');
+                        return false;
                     }
             }
              
@@ -51,20 +55,21 @@ const promptUser = () => {
             type: 'input',
             name: 'usage',
             message: 'Please enter usage information (Required) :',
-                validate: nameInput => {
-                    if (nameInput) {
+                validate: usageInput => {
+                    if (usageInput) {
                         return true
                     } else {
                         console.log('Please enter a description of the usage of this project');
+                        return false;
                     }
             }
         },
 
         {
-            type: 'checkbox',
+            type: 'list',
             name: 'license',
             message: 'Chose a license (Required) :',
-            choice: ['MPL 2.0', 'GNU', 'Apache', 'MIT', 'None of these licenses'],
+            choices: ['MPL 2.0', 'GNU v3', 'Apache', 'MIT', 'None of these licenses'],
             validate: your_license => {
                 if (your_license) {
                     return true;
@@ -79,8 +84,8 @@ const promptUser = () => {
             type: 'input',
             name: 'contributions',
             message: 'Please enter any contributors (Required) :', 
-                validate: nameInput => {
-                    if (nameInput) {
+                validate: contributionsInput => {
+                    if (contributionsInput) {
                         return true
                     } else {
                         console.log('If no contributors type: "none"');
@@ -91,20 +96,21 @@ const promptUser = () => {
             type: 'input',
             name: 'tests',
             message: 'Please enter how you want to test your project',
-                validate: nameInput => {
-                    if (nameInput) {
+                validate: testsInput => {
+                    if (testsInput) {
                         return true
                     } else {
                         console.log('Please enter how to test your project!');
-                }
+                        return false;
+                    }
             }
         },
         {
             type: 'input',
             name: 'github',
             message: 'Please enter your GitHub username (Required) :', 
-                validate: github_input => {
-                    if (github_input) {
+                validate: githubInput => {
+                    if (githubInput) {
                         return true;
                     } else {
                         console.log('Please enter your GitHub username!');
@@ -116,8 +122,8 @@ const promptUser = () => {
             type: 'input',
             name: 'email',
             message: 'Enter your email for those who might have any questions about the project?',
-                validate: email_input => {
-                    if (email_input) {
+                validate: emailInput => {
+                    if (emailInput) {
                         return true;
                     } else {
                         console.log('Please enter your email');
@@ -125,10 +131,10 @@ const promptUser = () => {
                     }
                 }
         }
-    ])
-}
+    ]);
+};
 
-promptUser()
+
    
 // TODO: Create a function to write README file
 function writeToFile(fileName, data) {
@@ -139,16 +145,16 @@ function writeToFile(fileName, data) {
     })
 
     console.log('Success! You can now preview your README file');
-}
+};
 
 // TODO: Create a function to initialize app
 function init() {
-    inquirer.prompt(questions)
+    promptUser()
     .then(function(userInput) {
         console.log(userInput)
         writeToFile('README.md', generateMarkdown(userInput));
-    })
-}
+    });
+};
 
 // Function call to initialize app
 init();
