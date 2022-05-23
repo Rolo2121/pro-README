@@ -73,7 +73,7 @@ Email me with any questions: ${data.emailContact}
 <br />
 <br />
 
-_This README was generated automatically with :revolving_hearts: by [README-generator](https://github.com/Rolo2121/pro-README)
+_This README was generated automatically by [README-generator](https://github.com/Rolo2121/pro-README)
 
 `;
 
